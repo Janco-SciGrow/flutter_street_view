@@ -58,7 +58,7 @@ class _StreetViewPanoramaNavigationDemoState
         mainAxisSize: MainAxisSize.min,
         children: [
           Card(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white.withValues(alpha: 0.8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -257,7 +257,7 @@ class _StreetViewPanoramaNavigationDemoState
         onPressed: onClick,
         child: Text(locationName),
         style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white.withOpacity(0.8),
+          backgroundColor: Colors.white.withValues(alpha: 0.8),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               side: BorderSide(width: 1, color: Colors.grey)),

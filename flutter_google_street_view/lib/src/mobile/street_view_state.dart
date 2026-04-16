@@ -43,7 +43,9 @@ class StreetViewState extends StreetViewBaseState {
   }
 
   void deactivate() {
-    _streetViewFlutterPlatform.deactivate(_viewId!);
+    if (_viewId != null) {
+      _streetViewFlutterPlatform.deactivate(_viewId!);
+    }
     super.deactivate();
   }
 

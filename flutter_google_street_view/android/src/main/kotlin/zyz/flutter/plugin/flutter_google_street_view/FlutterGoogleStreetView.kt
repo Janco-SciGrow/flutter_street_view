@@ -144,7 +144,9 @@ class FlutterGoogleStreetView(
 
     private fun setupListener(streetViewPanorama: StreetViewPanorama) {
         streetViewPanorama.setOnStreetViewPanoramaCameraChangeListener(this)
-        streetViewPanorama.setOnStreetViewPanoramaChangeListener(this)
+        streetViewPanorama.setOnStreetViewPanoramaChangeListener(
+            StreetViewPanoramaChangeListenerWrapper(this)
+        )
         streetViewPanorama.setOnStreetViewPanoramaClickListener(this)
         streetViewPanorama.setOnStreetViewPanoramaLongClickListener(this)
     }
@@ -614,7 +616,7 @@ class FlutterGoogleStreetView(
         )
     }
 
-    override fun onStreetViewPanoramaChange(location: StreetViewPanoramaLocation) {
+    fun onStreetViewPanoramaChange(location: StreetViewPanoramaLocation?) {
         if (viewReadyResult != null) {
             val hasInitLocation = initOptions?.let { it1 ->
                 it1.panoramaId != null || it1.position != null
@@ -668,6 +670,5 @@ class FlutterGoogleStreetView(
 }
 
 interface StreetViewListener : StreetViewPanorama.OnStreetViewPanoramaCameraChangeListener,
-    StreetViewPanorama.OnStreetViewPanoramaChangeListener,
     StreetViewPanorama.OnStreetViewPanoramaClickListener,
     StreetViewPanorama.OnStreetViewPanoramaLongClickListener

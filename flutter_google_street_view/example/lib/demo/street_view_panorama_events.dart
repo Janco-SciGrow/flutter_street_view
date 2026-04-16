@@ -90,7 +90,7 @@ class _StreetViewPanoramaEventsDemoState
                   alignment: Alignment.topCenter,
                   child: PointerInterceptor(
                       child: Card(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     child: Padding(
                       padding: EdgeInsets.all(8),
                       child: Column(
@@ -134,7 +134,7 @@ class _StreetViewPanoramaEventsDemoState
         onPressed: onClick,
         child: Text(locationName),
         style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white.withOpacity(0.8),
+          backgroundColor: Colors.white.withValues(alpha: 0.8),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               side: BorderSide(width: 1, color: Colors.grey)),
