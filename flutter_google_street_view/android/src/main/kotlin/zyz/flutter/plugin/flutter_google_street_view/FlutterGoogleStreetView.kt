@@ -626,17 +626,26 @@ class FlutterGoogleStreetView(
                 viewReadyResult = null
             }
         }
-        val arg = location?.let {
-            Convert.streetViewPanoramaLocationToJson(
-                it
-            )
-        } ?: mutableMapOf<String, Any>().apply {
-            val errorMsg = if (lastMoveToPos != null)
-                "Oops..., no valid panorama found with position:${lastMoveToPos!!.latitude}, ${lastMoveToPos!!.longitude}, try to change `position`, `radius` or `source`."
-            else if (lastMoveToPanoId != null)
-                "Oops..., no valid panorama found with panoId:$lastMoveToPanoId, try to change `panoId`."
-            else "Oops..., no valid panorama found."
-            put("error", errorMsg)
+
+        // Check if this is a dummy location indicating no street view data available
+        // Dummy location has: empty links, position (0,0), and null panoId
+        val isDummyLocation = location != null &&
+                location.panoId == null &&
+                location.position != null &&
+                location.position.latitude == 0.0 &&
+                location.position.longitude == 0.0
+
+        val arg = if (location == null || isDummyLocation) {
+            mutableMapOf<String, Any>().apply {
+                val errorMsg = if (lastMoveToPos != null)
+                    "Oops..., no valid panorama found with position:${lastMoveToPos!!.latitude}, ${lastMoveToPos!!.longitude}, try to change `position`, `radius` or `source`."
+                else if (lastMoveToPanoId != null)
+                    "Oops..., no valid panorama found with panoId:$lastMoveToPanoId, try to change `panoId`."
+                else "Oops..., no valid panorama found."
+                put("error", errorMsg)
+            }
+        } else {
+            Convert.streetViewPanoramaLocationToJson(location)
         }
         methodChannel.invokeMethod(
             "pano#onChange", arg
